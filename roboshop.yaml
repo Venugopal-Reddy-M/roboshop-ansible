@@ -4,13 +4,12 @@
   become: yes
 
   vars:
-  sg_id: sg-09e04001ff20131f1
-  ami_id: ami-0220d79f3f480ecf5
-  env: dev
-  instances:
-  - mongodb
-  - catalogue
-
+    sg_id: sg-09e04001ff20131f1
+    ami_id: ami-0220d79f3f480ecf5
+    env: dev
+    instances:
+    - mongodb
+    - catalogue
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instance:
