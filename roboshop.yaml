@@ -75,4 +75,4 @@
  
     - name: Print the Public IP Address
       ansible.builtin.debug:
-        msg: "The public IP is {{ ec2_result.instances[0].public_ip_address }}"
+        msg: "The public IP is {{ ec2_output.result.instances[0].public_ip_address }}"
