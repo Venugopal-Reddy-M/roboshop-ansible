@@ -35,6 +35,7 @@
   vars:
     sg_id: sg-09e04001ff20131f1
     ami_id: ami-0220d79f3f480ecf5
+    domain_name: solohunting.online
     env: dev
     instances:
       - mongodb
@@ -59,3 +60,14 @@
     - name: print the ec2-output
       ansible.builtin.debug:
         var: ec2_output
+
+    - name: create records in route53
+      amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{ item.item }}-{{ env }}-{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instance[0].private_ip_address }}"
+        wait: true
+      loop: "{{ ec2_output.results }}"
