@@ -2,7 +2,6 @@
   hosts: all
   connection: local
   become: yes
-
   vars:
     sg_id: sg-09e04001ff20131f1
     ami_id: ami-0220d79f3f480ecf5
