@@ -56,11 +56,12 @@
           Name: "{{ item }}-{{ env }}"
       loop: "{{ instances }}"
       register: ec2_output
-
+   ## Print output
     - name: print the ec2-output
       ansible.builtin.debug:
         msg: "{{ ec2_output }}"
 
+  ### create r53 records 
     - name: create records in route53
       amazon.aws.route53:
         state: present
@@ -71,3 +72,7 @@
         value: "{{ item.instances[0].private_ip_address }}"
         wait: true
       loop: "{{ ec2_output.results }}"
+ 
+    - name: Print the Public IP Address
+      ansible.builtin.debug:
+        msg: "The public IP is {{ ec2_result.instances[0].public_ip_address }}"
