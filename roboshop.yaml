@@ -37,6 +37,7 @@
     ami_id: ami-0220d79f3f480ecf5
     domain_name: solohunting.online
     env: dev
+    action: create
     instances:
       - mongodb
       - catalogue
@@ -56,6 +57,7 @@
           Name: "{{ item }}-{{ env }}"
       loop: "{{ instances }}"
       register: ec2_output
+      when: action == "create"
 
    ## Print output
     - name: print the ec2-output
@@ -73,6 +75,7 @@
         value: "{{ item.instances[0].private_ip_address }}"
         wait: true
       loop: "{{ ec2_output.results }}"
+      when: action == "create"
 
     ## create r53 records frontend
     - name: create records in route53
@@ -85,21 +88,40 @@
         value: "{{ item.instances[0].public_ip_address }}"
         wait: true
       loop: "{{ ec2_output.results }}"
-      when: item.item == "frontend"
+      when: 
+      - item.item == "frontend"
+      - action == "create"
 
- ## print the public Ip_address
-    - name: Print the Public IP Address
-      ansible.builtin.debug:
-        msg: "The public IP of {{ item.item }} is {{ item.instances[0].public_ip_address }}"
-      loop: "{{ ec2_output.results }}"
+    - name: delete ec2 instances
+      amazon.aws.ec2_instance:
+        state: absent
+         name: "{{ item }}-{{ env }}"
+        loop: "{{ instances }}" 
+        when : action == "destroy"
+  
+    - name: delete r53 records
+      amazon.aws.route53:
+       state: absent
+       zone: "{{ domain_name }}"
+       record: "{{ item }}-{{ env }}.{{ domain_name }}"
+       type: A
+       ttl: 1
+      loop: "{{ instances }}"
+      when : action == "destroy"
+
+#  ## print the public Ip_address
+#     - name: Print the Public IP Address
+#       ansible.builtin.debug:
+#         msg: "The public IP of {{ item.item }} is {{ item.instances[0].public_ip_address }}"
+#       loop: "{{ ec2_output.results }}"
 
 
-    - name: Print Instance Details
-      ansible.builtin.debug:
-        msg:
-          - "Name       : {{ item.item }}"
-          - "Public IP : {{ item.instances[0].public_ip_address }}"
-          - "Private IP: {{ item.instances[0].private_ip_address }}"
-      loop: "{{ ec2_output.results }}"
+#     - name: Print Instance Details
+#       ansible.builtin.debug:
+#         msg:
+#           - "Name       : {{ item.item }}"
+#           - "Public IP : {{ item.instances[0].public_ip_address }}"
+#           - "Private IP: {{ item.instances[0].private_ip_address }}"
+#       loop: "{{ ec2_output.results }}"
       
     
