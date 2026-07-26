@@ -87,11 +87,11 @@
     #   loop: "{{ ec2_output.results }}"
     #   when: item.item == "frontend"
 
-#  ## print the public Ip_address
-#     - name: Print the Public IP Address
-#       ansible.builtin.debug:
-#         msg: "The public IP of {{ item.item }} is {{ item.instances[0].public_ip_address }}"
-#       loop: "{{ ec2_output.results }}"
+ ## print the public Ip_address
+    - name: Print the Public IP Address
+      ansible.builtin.debug:
+        msg: "The public IP of {{ item.item }} is {{ item.instances[0].public_ip_address }}"
+      loop: "{{ ec2_output.results }}"
 
 
     - name: Print Instance Details
