@@ -94,12 +94,12 @@
 #       loop: "{{ ec2_output.results }}"
 
 
-    - name: Print Instance Details
-      ansible.builtin.debug:
-        msg:
-          - "Name       : {{ item.item }}"
-          - "Public IP : {{ item.instances[0].public_ip_address }}"
-          - "Private IP: {{ item.instances[0].private_ip_address }}"
-      loop: "{{ ec2_output.results }}"
+    # - name: Print Instance Details
+    #   ansible.builtin.debug:
+    #     msg:
+    #       - "Name       : {{ item.item }}"
+    #       - "Public IP : {{ item.instances[0].public_ip_address }}"
+    #       - "Private IP: {{ item.instances[0].private_ip_address }}"
+    #   loop: "{{ ec2_output.results }}"
       
     
