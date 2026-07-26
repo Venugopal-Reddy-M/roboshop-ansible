@@ -1,8 +1,8 @@
 ---
 
 - name: catalouge service configure
-  hosts: catalouge
-  connection: local
+  hosts: catalogue
+  #connection: local
   become: yes
   tasks:
   - name: enable nodejs 20
