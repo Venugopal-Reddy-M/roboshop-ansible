@@ -92,22 +92,33 @@
       - item.item == "frontend"
       - action == "create"
 
-    # - name: delete ec2 instances
-    #   amazon.aws.ec2_instance:
-    #     state: absent
-    #      name: "{{ item }}-{{ env }}"
-    #     loop: "{{ instances }}" 
-    #     when : action == "destroy"
-  
-    # - name: delete r53 records
-    #   amazon.aws.route53:
-    #    state: absent
-    #    zone: "{{ domain_name }}"
-    #    record: "{{ item }}-{{ env }}.{{ domain_name }}"
-    #    type: A
-    #    ttl: 1
-    #   loop: "{{ instances }}"
-    #   when : action == "destroy"
+   
+    ## DESTROY r53 ###
+    - name: delete r53 records
+      amazon.aws.route53:
+        state: absent
+        zone: "{{ domain_name }}"
+        record: "{{ item }}-{{ env }}.{{ domain_name }}"
+        type: A
+        ttl: 1
+      loop: "{{ instances }}"
+      when : action == "destroy"
+
+   ##DESTORY ec2 instances ###
+    - name: delete ec2 instances
+      amazon.aws.ec2_instance:
+        state: absent
+        name: "{{ item }}-{{ env }}"
+      loop: "{{ instances }}" 
+      when : action == "destroy"
+
+
+
+
+
+
+
+
 
 #  ## print the public Ip_address
 #     - name: Print the Public IP Address
