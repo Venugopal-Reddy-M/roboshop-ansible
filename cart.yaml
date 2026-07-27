@@ -52,8 +52,8 @@
 
   - name: copy the service file
     ansible.builtin.copy:
-    src: cart.service
-    dest: /etc/systemd/system/cart.service
+      src: cart.service
+      dest: /etc/systemd/system/cart.service
 
   - name: deamon reload user service
     ansible.builtin.systemd_service:
