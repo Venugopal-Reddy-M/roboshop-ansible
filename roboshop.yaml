@@ -120,20 +120,20 @@
 
 
 
-#  ## print the public Ip_address
-#     - name: Print the Public IP Address
-#       ansible.builtin.debug:
-#         msg: "The public IP of {{ item.item }} is {{ item.instances[0].public_ip_address }}"
-#       loop: "{{ ec2_output.results }}"
-
-
-    - name: Print Instance Details
+ ## print the public Ip_address
+    - name: Print the Public IP Address
       ansible.builtin.debug:
-        msg:
-          - "Name       : {{ item.item }}"
-          - "Public IP : {{ item.instances[0].public_ip_address }}"
-          - "Private IP: {{ item.instances[0].private_ip_address }}"
+        msg: "The public IP of {{ item.item }} is {{ item.instances[0].public_ip_address }}"
       loop: "{{ ec2_output.results }}"
-      
+
+
+    # - name: Print Instance Details
+    #   ansible.builtin.debug:
+    #     msg:
+    #       - "Name       : {{ item.item }}"
+    #       - "Public IP : {{ item.instances[0].public_ip_address }}"
+    #       - "Private IP: {{ item.instances[0].private_ip_address }}"
+    #   loop: "{{ ec2_output.results }}"
+
       
     
