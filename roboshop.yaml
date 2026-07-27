@@ -54,7 +54,7 @@
         region: us-east-1
         name: "{{ item }}-{{ env }}"
         wait : false   ## no waiting time to create ec2
-        overwrite: true
+        #overwrite: true
         tags:
           Project: roboshop
           Component: "{{ item }}"
