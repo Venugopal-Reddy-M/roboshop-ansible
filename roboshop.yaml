@@ -61,8 +61,11 @@
 
    ## Print output
     - name: print the ec2-output
-      ansible.builtin.debug:
-        msg: "{{ ec2_output }}"
+      msg:
+      - "Name       : {{ item.item }}"
+      - "Public IP : {{ item.instances[0].public_ip_address }}"
+      - "Private IP: {{ item.instances[0].private_ip_address }}"
+      loop: "{{ ec2_output.results }}"
 
   ### create r53 records 
     - name: create records in route53
