@@ -29,6 +29,7 @@
 #     ansible.builtin.debug:
 #      msg: "{{ ec2_output }}" 
 
+# ansible-playbook -i localhost, -e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' -e action=destroy roboshop.yaml
 
 # ansible-playbook -i localhost, \ -e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \ roboshop.yaml
 
@@ -78,7 +79,7 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].private_ip_address }}"
-        wait: false 
+        wait: true 
         overwrite: true   ## Overwrites the existing r3 recards 
       loop: "{{ ec2_output.results }}"
       when: action == "create"
