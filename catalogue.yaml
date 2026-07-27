@@ -37,5 +37,26 @@
       dest: /app
       remote_src: yes
 
+  - name: install dependencies
+    community.general.npm:
+      path: /app
+
+  - name: Copy catalogue servers file
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: copy mongorepo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: install mongodb client
+    ansible.builtin.dnf:
+      name: mongodb-mongosh
+      state: present
+  - name:
+
+
     
   

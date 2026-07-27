@@ -53,6 +53,8 @@
         image_id: "{{ ami_id }}"
         region: us-east-1
         name: "{{ item }}-{{ env }}"
+        wait : false   ## no waiting time to create ec2
+        overwrite: true
         tags:
           Project: roboshop
           Component: "{{ item }}"
@@ -76,7 +78,8 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].private_ip_address }}"
-        wait: true
+        wait: false 
+        overwrite: true   ## Overwrites the existing r3 recards 
       loop: "{{ ec2_output.results }}"
       when: action == "create"
 
@@ -89,7 +92,8 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].public_ip_address }}"
-        wait: true
+        wait: false
+        overwrite: true  
       loop: "{{ ec2_output.results }}"
       when: 
       - item.item == "frontend"
