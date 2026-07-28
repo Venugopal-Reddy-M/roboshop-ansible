@@ -79,7 +79,7 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].private_ip_address }}"
-        wait: true 
+        wait: false
         overwrite: true   ## Overwrites the existing r3 recards 
       loop: "{{ ec2_output.results }}"
       when: action == "create"
@@ -93,7 +93,7 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].public_ip_address }}"
-        wait: true
+        wait: false
         overwrite: true  
       loop: "{{ ec2_output.results }}"
       when: 
