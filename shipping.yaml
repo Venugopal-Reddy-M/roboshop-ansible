@@ -42,3 +42,8 @@
       src: /tmp/shipping.zip
       dest: /app
       remote_src: yes
+
+  - name: install dependencies maven
+    ansible.builtin.command:
+      cmd: mvn clean package 
+      
