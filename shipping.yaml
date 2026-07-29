@@ -66,6 +66,12 @@
       daemon_reload: true
       name: shipping
 
+  - name: install dependencies
+    ansible.builtin.pip:
+      name: PyMySQL
+      executable: pip3.9
+
+
   - name: import shipping data
     community.mysql.mysql_db:
       state: import
