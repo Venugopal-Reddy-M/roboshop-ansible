@@ -19,7 +19,6 @@
       name: rabbitmq-server
       state: restarted
       enabled: yes
-      name: rabbitmq
 
   - name: create user_name and password
     community.rabbitmq.rabbitmq_user:
