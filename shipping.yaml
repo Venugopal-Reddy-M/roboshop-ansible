@@ -63,7 +63,7 @@
   
   - name: deamon reload shipping
     nsible.builtin.systemd_service:
-    daemon_reload: true
+      daemon_reload: true
 
   - name: import shipping data
     community.mysql.mysql_db:
