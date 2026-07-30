@@ -6,12 +6,40 @@
   - name: install nginx
     ansible.builtin.command: dnf module install nginx:1.24 -y 
 
+ 
+  - name: remove defalt content
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: absent
+
+  - name: create html directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory
+
+  - name: download frontend code
+    ansible.builtin.get_url:
+      path: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+      dest: /tmp/frontend.zip
+   
+  - name: unarchieve frontend code
+    ansible.builtin.unarchieve:
+      path: /tmp/frontend.zip
+      dest: /usr/share/nginx/html
+      remote_src: yes
+
+  - name: delete defalt nginx
+    ansible.builtin.file:
+      path: /etc/nginx/nginx.conf
+      state: absent
+
+  - name: copy nginx.conf
+    ansible.builtin.template:
+      src: nginx.conf
+      dest: /etc/nginx/nginx.conf
+      
   - name: start enable nginx
     ansible.builtin.service:
      name: nginx
      state: restarted
      enabled: yes 
-
-  - name: remove defalt content
-    ansible.builtin.file:
-    path: /usr/share/nginx/html/  
