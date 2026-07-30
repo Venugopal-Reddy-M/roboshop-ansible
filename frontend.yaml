@@ -37,6 +37,8 @@
     ansible.builtin.template:
       src: nginx.conf
       dest: /etc/nginx/nginx.conf
+      remote_src: yes
+
       
   - name: start enable nginx
     ansible.builtin.service:
