@@ -22,11 +22,11 @@
       url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
       dest: /tmp/frontend.zip
    
-  - name: unarchive frontend code
+  - name: Unarchive frontend code
     ansible.builtin.unarchive:
       src: /tmp/frontend.zip
       dest: /usr/share/nginx/html
-      #remote_src: yes
+      remote_src: yes
 
   - name: delete defalt nginx
     ansible.builtin.file:
