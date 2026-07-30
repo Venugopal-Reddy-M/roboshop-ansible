@@ -88,10 +88,10 @@
   
 
 
-  - name: configure catalogue
-    hosts: catalogue
-    become: yes
-    tasks:
+- name: configure catalogue
+  hosts: catalogue
+  become: yes
+  tasks:
   - name: enable nodejs 20
     ansible.builtin.command: dnf module enable nodejs:20 -y
 
