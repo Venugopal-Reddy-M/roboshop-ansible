@@ -35,7 +35,7 @@
 
   - name: copy nginx service
     ansible.builtin.template:
-      src: nginx.service
+      src: nginx.conf
       dest: /etc/nginx/nginx.conf
       #remote_src: yes
 
