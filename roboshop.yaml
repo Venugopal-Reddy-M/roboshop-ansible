@@ -34,10 +34,13 @@
 ################
  # ansible-playbook -i inventory.ini mongodb.yaml ; ansible-playbook -i inventory.ini catalogue.yaml ; ansible-playbook -i inventory.ini redis.yaml ; ansible-playbook -i inventory.ini user.yaml ; ansible-playbook -i inventory.ini cart.yaml ; ansible-playbook -i inventory.ini mysql.yaml ; ansible-playbook -i inventory.ini shipping.yaml ; ansible-playbook -i inventory.ini rabbitmq.yaml ; ansible-playbook -i inventory.ini payment.yaml 
 #############
+########### create ec2 instances and route53 records #########
+# ansible-playbook -i localhost, -e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' -e action=destroy roboshop.yaml
+###############################################################
+# ansible-playbook -i localhost, \ -e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \ roboshop.yaml
 
 # ansible-playbook -i localhost, -e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' -e action=destroy roboshop.yaml
 
-# ansible-playbook -i localhost, \ -e '{"instances":["mongodb","catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment","frontend"]}' \ roboshop.yaml
 
 - name: create ec2-instance and route53
   hosts: all
